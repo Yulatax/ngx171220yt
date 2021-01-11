@@ -2,24 +2,27 @@
 
 <course-sidenav (setDrawer)="setSideNav($event)">
   <ng-template #contentTemplate>
-    <ul class="list">
-      <li>Option1</li>
-      <li>Option2</li>
-    </ul>
-    <div>My content</div>
+<!--    <pre>{{products | json}}</pre>-->
+<!--    <pre>{{products$ | async | json}}</pre>-->
+
+
+    <mat-form-field appearance="legacy">
+      <mat-label>Search products</mat-label>
+      <input matInput placeholder="search text" (input)="search($event)">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+
+
+    <mat-grid-list cols="4" rowHeight="500" *ngIf="products$ | async as products; else loader">
+      <mat-grid-tile *ngFor="let product of products | productsFilter: searchTerm; odd as isOdd">
+        <course-product-card [product]="product" [isOdd]="isOdd"></course-product-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <ng-template #loader>
+      <div class="loader-container">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
   </ng-template>
-<!--  <ul class="list" #el>-->
-<!--    <li>Option1</li>-->
-<!--    <li>Option2</li>-->
-<!--  </ul>-->
-  <div>My content</div>
 </course-sidenav>
-
-<!--<div>{{getSalary() + '$'}}</div>-->
-<!--<div>{{user}}</div>-->
-<!--<img [src]="imgSrc" [alt]="title" [style.width.%]="imgWidth">-->
-
-<!--<div [innerHTML]="content">-->
-<!--</div>-->
-
-<!--<input type="text" #inputElement (input)="search($event, inputElement)">-->
