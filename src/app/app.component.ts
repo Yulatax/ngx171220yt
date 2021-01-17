@@ -3,6 +3,7 @@ import {MatDrawer} from '@angular/material/sidenav';
 import {IProduct, mockedProducts$} from './products';
 import {Observable} from 'rxjs';
 import {UnSubscriber} from './unsubscriber';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
   selector: 'course-root',
@@ -12,6 +13,7 @@ import {UnSubscriber} from './unsubscriber';
 export class AppComponent extends UnSubscriber implements OnInit, OnDestroy{
   public title = 'ngx171220yt';
   public drawer!: MatDrawer;
+  public onlyFavourites = false;
 
   // public products!: IProduct[];
   public products$: Observable<IProduct[]> = mockedProducts$;
@@ -63,5 +65,9 @@ export class AppComponent extends UnSubscriber implements OnInit, OnDestroy{
 
   public search(event: Event): void {
     this.searchTerm = (event.target as HTMLInputElement).value;
+  }
+
+  public searchByFavourites({checked}: MatCheckboxChange): void {
+    this.onlyFavourites = checked;
   }
 }
