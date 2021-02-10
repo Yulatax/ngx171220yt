@@ -1,14 +1,6 @@
 import {of} from 'rxjs';
 import {delay, tap} from 'rxjs/operators';
-
-export interface IProduct {
-  _id: string;
-  title: string;
-  img: string;
-  price: number;
-  author: string;
-  isFavorite: boolean;
-}
+import {IProduct} from './shared/services/products.service';
 
 export const mockedProducts: IProduct[] = [
   {

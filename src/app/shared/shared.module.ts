@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {CommonModule} from '@angular/common';
 import {ProductCardComponent} from '../product-card/product-card.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {ProductsService} from './services/products.service';
 
 
 const internalModules = [
@@ -39,6 +40,18 @@ const externalModules = [
     ...internalModules,
     ...externalModules,
     ProductCardComponent
+  ],
+  providers: [
+    ProductsService
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  public static forRoot(): ModuleWithProviders<SharedModule> {
+    return {
+      ngModule: SharedModule,
+      providers: [
+        ProductsService
+      ]
+    };
+  }
+}

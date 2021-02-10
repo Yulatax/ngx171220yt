@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDrawer} from '@angular/material/sidenav';
-import {IProduct, mockedProducts$} from './products';
 import {Observable} from 'rxjs';
 import {UnSubscriber} from './unsubscriber';
 import {MatCheckboxChange} from '@angular/material/checkbox';
+import {IProduct, ProductsService} from './shared/services/products.service';
 
 @Component({
   selector: 'course-root',
@@ -16,18 +16,20 @@ export class AppComponent extends UnSubscriber implements OnInit, OnDestroy{
   public onlyFavourites = false;
 
   // public products!: IProduct[];
-  public products$: Observable<IProduct[]> = mockedProducts$;
+  public products$: Observable<IProduct[]> = this.productsService.getProducts();
   public searchTerm = '';
 
   public imgSrc = 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg';
 
   constructor(
     // private cdr: ChangeDetectorRef
+    private productsService: ProductsService
   ) {
     super();
   }
 
   public ngOnInit(): void {
+    console.log(this.productsService);
     // const sub = mockedProducts$.subscribe((v) => {
     //   this.products = v;
     // });

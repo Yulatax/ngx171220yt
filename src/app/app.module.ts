@@ -13,6 +13,11 @@ import { ExchangeRatesComponent } from './header/exchange-rates/exchange-rates.c
 import {ExchangeRatesDirective} from './header/exchange-rates/exchange-rates.directive';
 import { HiddenDirective } from './header/exchange-rates/hidden.directive';
 
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {environment} from '../environments/environment';
+import {BASE_URL} from './config';
+import {AuthInterceptor} from './auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,9 +32,20 @@ import { HiddenDirective } from './header/exchange-rates/hidden.directive';
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule.forRoot(),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: BASE_URL,
+      useValue: environment.baseUrl
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
