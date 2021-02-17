@@ -43,6 +43,24 @@ export class AppComponent extends UnSubscriber implements OnInit, OnDestroy{
     // .subscribe((v) => {
     //   this.products = v;
     // });
+
+    // const sequence$$ = new Subject();
+    //
+    // sequence$$.subscribe((v) => {
+    //   console.log(`From subject:`, v);
+    // });
+    //
+    // setTimeout(() => {
+    //   const obj = {title: 'RxJS awesome'};
+    //   console.log(`EMIT event`, obj);
+    //   sequence$$.next(obj);
+    // }, 5000);
+    //
+    // setTimeout(() => {
+    //   const obj = {title: 'Angular awesome'};
+    //   console.log(`EMIT event`, obj);
+    //   sequence$$.next(obj);
+    // }, 10000);
   }
 
   public ngOnDestroy(): void {

@@ -17,6 +17,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {environment} from '../environments/environment';
 import {BASE_URL} from './config';
 import {AuthInterceptor} from './auth.interceptor';
+import {ModalModule} from './modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -26,14 +27,15 @@ import {AuthInterceptor} from './auth.interceptor';
     ProductsFilterPipe,
     ExchangeRatesComponent,
     ExchangeRatesDirective,
-    HiddenDirective
+    HiddenDirective,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ModalModule
   ],
   providers: [
     {
