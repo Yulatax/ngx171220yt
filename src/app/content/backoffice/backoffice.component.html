@@ -1,0 +1,6 @@
+<course-header [titleText]="title" [sideNavDrawer]="drawer"></course-header>
+
+<course-sidenav (setDrawer)="setSideNav($event)">
+  <router-outlet></router-outlet>
+</course-sidenav>
+

@@ -10,9 +10,11 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {CommonModule} from '@angular/common';
-import {ProductCardComponent} from '../product-card/product-card.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {ProductsService} from './services/products.service';
+import {BASE_URL} from '../config';
+import {environment} from '../../environments/environment';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthInterceptor} from './auth/auth.interceptor';
 
 
 const internalModules = [
@@ -31,18 +33,21 @@ const externalModules = [
   MatFormFieldModule,
   MatInputModule,
   FlexLayoutModule,
+  HttpClientModule
 ];
 
 @NgModule({
-  declarations: [ProductCardComponent],
   imports: internalModules,
   exports: [
     ...internalModules,
-    ...externalModules,
-    ProductCardComponent
+    ...externalModules
   ],
   providers: [
-    ProductsService
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
 })
 export class SharedModule {
@@ -50,7 +55,10 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        ProductsService
+        {
+          provide: BASE_URL,
+          useValue: environment.baseUrl
+        }
       ]
     };
   }

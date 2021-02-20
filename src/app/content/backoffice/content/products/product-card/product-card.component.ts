@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IProduct} from '../shared/services/products.service';
-import {ModalService} from '../modal/modal.service';
+import {IProduct} from '../products.service';
+import {ModalService} from '../../../../../modal/modal.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class ProductCardComponent implements OnInit {
   public isOdd!: boolean;
 
   public constructor(
-    private modalService: ModalService
+    private modalService: ModalService,
   ) {}
 
   public ngOnInit(): void {

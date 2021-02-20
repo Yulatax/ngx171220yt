@@ -1,4 +1,4 @@
-import {mockedProducts$} from '../../products';
+import {mockedProducts$} from '../../../../products';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 

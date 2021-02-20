@@ -1,6 +1,6 @@
 import {of} from 'rxjs';
 import {delay, tap} from 'rxjs/operators';
-import {IProduct} from './shared/services/products.service';
+import {IProduct} from './content/backoffice/content/products/products.service';
 
 export const mockedProducts: IProduct[] = [
   {

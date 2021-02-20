@@ -1,93 +1,38 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MatDrawer} from '@angular/material/sidenav';
-import {Observable} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
 import {UnSubscriber} from './unsubscriber';
-import {MatCheckboxChange} from '@angular/material/checkbox';
-import {IProduct, ProductsService} from './shared/services/products.service';
+import {NavigationStart, Router, Event} from '@angular/router';
+import {filter, take} from 'rxjs/operators';
 
 @Component({
   selector: 'course-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent extends UnSubscriber implements OnInit, OnDestroy{
-  public title = 'ngx171220yt';
-  public drawer!: MatDrawer;
-  public onlyFavourites = false;
-
-  // public products!: IProduct[];
-  public products$: Observable<IProduct[]> = this.productsService.getProducts();
-  public searchTerm = '';
-
-  public imgSrc = 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg';
+export class AppComponent extends UnSubscriber implements OnInit{
 
   constructor(
-    // private cdr: ChangeDetectorRef
-    private productsService: ProductsService
+    private readonly router: Router
   ) {
     super();
   }
 
-  public ngOnInit(): void {
-    console.log(this.productsService);
-    // const sub = mockedProducts$.subscribe((v) => {
-    //   this.products = v;
-    // });
-    //
-    // this.subscriptions.push(sub);
 
-    // mockedProducts$
-    // .pipe(
-    //   takeUntil(this.unSubscriber$$)
-    // )
-    // .subscribe((v) => {
-    //   this.products = v;
-    // });
-
-    // const sequence$$ = new Subject();
-    //
-    // sequence$$.subscribe((v) => {
-    //   console.log(`From subject:`, v);
-    // });
-    //
-    // setTimeout(() => {
-    //   const obj = {title: 'RxJS awesome'};
-    //   console.log(`EMIT event`, obj);
-    //   sequence$$.next(obj);
-    // }, 5000);
-    //
-    // setTimeout(() => {
-    //   const obj = {title: 'Angular awesome'};
-    //   console.log(`EMIT event`, obj);
-    //   sequence$$.next(obj);
-    // }, 10000);
+  ngOnInit(): void {
+    this.router.events
+      .pipe(
+        filter(this.isNavigationStart),
+        filter((e: NavigationStart) => {
+          return e.id === 1;
+        }),
+        take(1)
+      )
+      .subscribe((e) => {
+        console.log(e);
+    });
   }
 
-  public ngOnDestroy(): void {
-    // ... do smth
-    super.ngOnDestroy();
+  private isNavigationStart(e: Event): e is NavigationStart {
+    return e instanceof NavigationStart;
   }
 
-  public toggleSideNav(event: any): void {
-    console.log(event);
-  }
-
-  public setSideNav(drawer: MatDrawer): void {
-    // setTimeout(() => {
-    //   this.drawer = drawer;
-    // });
-    // Promise.resolve().then(() => {
-    //     //   this.drawer = drawer;
-    //     // });
-    this.drawer = drawer;
-    // this.cdr.detectChanges();
-  }
-
-  public search(event: Event): void {
-    this.searchTerm = (event.target as HTMLInputElement).value;
-  }
-
-  public searchByFavourites({checked}: MatCheckboxChange): void {
-    this.onlyFavourites = checked;
-  }
 }
