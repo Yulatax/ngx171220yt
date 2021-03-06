@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {pluck} from 'rxjs/operators';
 
 @Component({
   selector: 'course-one-product',
@@ -8,22 +9,19 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class OneProductComponent implements OnInit {
 
+  public product$ = this.activatedRoute.data
+    .pipe(
+      pluck('product')
+    );
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    // private http: HttpClient
   ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap
-      // .pipe(
-      //   switchMap((paramMap) => {
-      //     const productId = paramMap.get('productId');
-      //     return this.http.get(`/products/${productId}`);
-      //   })
-      // )
-      .subscribe((paramMap) => {
-        console.log(paramMap.get('productId'));
-      });
+    this.activatedRoute.data.subscribe((v) => {
+      console.log(v);
+    });
   }
 
 }
