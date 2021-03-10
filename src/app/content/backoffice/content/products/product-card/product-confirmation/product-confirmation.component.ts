@@ -1,7 +1,7 @@
 import {Component, NgModule} from '@angular/core';
-import {IProduct} from '../../products.service';
 import { MatButtonModule} from '@angular/material/button';
 import { MatCardModule} from '@angular/material/card';
+import {IProduct} from '../../../../../../store/reducers/products.reducer';
 
 @Component({
   selector: 'course-product-confirmation',

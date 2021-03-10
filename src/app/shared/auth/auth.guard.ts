@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     _route: ActivatedRouteSnapshot,
     {url}: RouterStateSnapshot): Observable<boolean> {
     // const accessToken = localStorage.getItem('accessToken');
-    return of(false)// !!accessToken instead of false
+    return of(true)// !!accessToken instead of false or true
       .pipe(
         switchMap((isLogged: boolean) => {
           if (!isLogged && (url === '/login' || url === '/signup')) {

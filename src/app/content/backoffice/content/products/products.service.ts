@@ -1,15 +1,9 @@
 import {mockedProducts$} from '../../../../products';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
+import {IProduct} from '../../../../store/reducers/products.reducer';
 
-export interface IProduct {
-  _id: string;
-  title: string;
-  img: string;
-  price: number;
-  author: string;
-  isFavorite: boolean;
-}
+
 
 @Injectable()
 export class ProductsService {

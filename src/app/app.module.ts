@@ -8,6 +8,13 @@ import { AppComponent } from './app.component';
 import {ModalModule} from './modal/modal.module';
 import {SharedModule} from './shared/shared.module';
 import {AppRoutingModule} from './app-routing.module';
+import {StoreModule} from '@ngrx/store';
+import {reducers} from './store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
+import {EffectsModule} from '@ngrx/effects';
+import {ProductsEffects} from './store/effects/products.effects';
+import {ProductsService} from './content/backoffice/content/products/products.service';
 
 @NgModule({
   declarations: [
@@ -19,8 +26,15 @@ import {AppRoutingModule} from './app-routing.module';
     BrowserAnimationsModule,
     SharedModule.forRoot(),
     ModalModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+    EffectsModule.forRoot([ProductsEffects])
   ],
+  providers: [ProductsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
