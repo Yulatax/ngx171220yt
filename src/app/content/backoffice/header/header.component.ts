@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDrawer} from '@angular/material/sidenav';
 import {IExchangeRate} from './exchange-rates/exchange-rates.component';
+import {IRootState} from '../../../store';
+import {Store} from '@ngrx/store';
+import {totalProducts} from '../../../store/selector/cart.selector';
 
 @Component({
   selector: 'course-header',
@@ -21,7 +24,11 @@ export class HeaderComponent implements OnInit {
     {value: 33, currency: 'EUR'}
   ];
 
-  constructor() { }
+  public cartProductsCount$ = this.store.select(totalProducts);
+
+  constructor(
+    private readonly store: Store<IRootState>
+  ) { }
 
   ngOnInit(): void {
   }

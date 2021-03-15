@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalService} from '../../../../../modal/modal.service';
 import {IProduct} from '../../../../../store/reducers/products.reducer';
+import {Store} from '@ngrx/store';
+import {IRootState} from '../../../../../store';
+import {addProductToCart} from '../../../../../store/actions/cart.actions';
 
 
 @Component({
@@ -18,6 +21,7 @@ export class ProductCardComponent implements OnInit {
 
   public constructor(
     private modalService: ModalService,
+    private store: Store<IRootState>
   ) {}
 
   public ngOnInit(): void {
@@ -31,6 +35,7 @@ export class ProductCardComponent implements OnInit {
         product: {...this.product},
         save: () => {
           console.log('Move product to cart');
+          this.store.dispatch(addProductToCart({product: {...this.product}}));
           this.modalService.close();
         },
         close: () => {

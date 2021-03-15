@@ -5,6 +5,7 @@ import {ProductsComponent} from './content/products/products.component';
 import {OneProductComponent} from './content/one-product/one-product.component';
 import {OneProductResolverService} from './content/one-product/one-product-resolver.service';
 
+
 export const routes: Routes = [
   {
     path: '',
@@ -13,6 +14,10 @@ export const routes: Routes = [
       {
         path: '',
         component: ProductsComponent
+      },
+      {
+        path: 'cart',
+        loadChildren: () => import('./content/cart/cart.module').then((m) => m.CartModule)
       },
       {
         path: ':productId',
